@@ -2,15 +2,34 @@ import java.util.Scanner;
 
 public class Vigenere {
     public static String encryptVigenere(String message, String key) {
-        return message;
-        // REPLACE THIS WITH YOUR CODE
+        String converted = "";
+        int j = 0;
+        for (int i = 0; i<message.length();i++) {
+            if ((message.charAt(i)>=65) && (message.charAt(i)<=90-(key.charAt(j%key.length())-65))||((message.charAt(i)>=97) && (message.charAt(i)<=122-(key.charAt(j%key.length())-65)))) converted += (char)(message.charAt(i)+(key.charAt(j%key.length())-65));
+            else if (((message.charAt(i)>90-(key.charAt(j%key.length())-65)) && (message.charAt(i)<=90))||((message.charAt(i)>122-(key.charAt(j%key.length())-65)) && (message.charAt(i)<=122))) converted += (char)(message.charAt(i)-(26-(key.charAt(j%key.length())-65)));
+            else {
+                converted += (char)(message.charAt(i));
+                j-=1;
+            }
+            j++;
+        }
+        return converted;
     }
 
     public static String decryptVigenere(String message, String key) {
-        return message;
-        // REPLACE THIS WITH YOUR CODE
+        String converted = "";
+        int j = 0;
+        for (int i = 0; i<message.length();i++) {
+            if ((message.charAt(i)>=65+(key.charAt(j%key.length())-65)) && (message.charAt(i)<=90)||((message.charAt(i)>=97+(key.charAt(j%key.length())-65)) && (message.charAt(i)<=122))) converted += (char)(message.charAt(i)-(key.charAt(j%key.length())-65));
+            else if (((message.charAt(i)>=65) && (message.charAt(i)<=90))||((message.charAt(i)>=97) && (message.charAt(i)<=122))) converted += (char)(message.charAt(i)+(26-(key.charAt(j%key.length())-65)));
+            else {
+                converted += (char)(message.charAt(i));
+                j-=1;
+            }
+            j++;
+        }
+        return converted;
     }
-
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
